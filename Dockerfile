@@ -26,19 +26,19 @@ COPY . .
 #初始化go项目
 #RUN go mod init golang-module_one
 # 编译代码 编译成可执行的二进制文件 应用的名字叫做 module_one
-RUN go build -installsuffix cgo -o golang-module_one .
+RUN go build -installsuffix cgo -o module_one .
 
 # 移动到用于存放生成的二进制文件的 /dist 目录
 WORKDIR /dist
 
 # 将二进制文件从 /build 目录复制到这里 /dist
-RUN cp /build/golang-module_one .
+COPY /build/module_one .
 
 # 声明服务端口
 EXPOSE 8888
 
 # 启动容器时需要启动的应用
-ENTRYPOINT ["golang-module_one"]
+ENTRYPOINT ["module_one"]
 
 # 定义启动容器应用的时候的参数
 CMD ["--help"]
