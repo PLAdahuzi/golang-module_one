@@ -20,6 +20,9 @@ WORKDIR /build
 #将代码复制到容器中
 COPY . .
 
+RUN apk add --no-cache git
+RUN go get github.com/golang/dep/cmd/dep
+
 #初始化go项目
 #RUN go mod init golang-module_one
 # 编译代码 编译成可执行的二进制文件 应用的名字叫做 module_one
