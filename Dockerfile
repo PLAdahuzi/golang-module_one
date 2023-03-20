@@ -11,7 +11,8 @@ FROM golang:alpine
 ENV GO111MODULE=off \
     CGO_ENABLED=0 \
     GOOS=linux \
-    GOARCH=amd64
+    GOARCH=amd64 \
+    GOPROXY=https://goproxy.io,direct
 
 # 移动到工作目录中
 WORKDIR /build
