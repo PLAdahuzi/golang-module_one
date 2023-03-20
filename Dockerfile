@@ -28,11 +28,14 @@ RUN go get github.com/golang/dep/cmd/dep
 # 编译代码 编译成可执行的二进制文件 应用的名字叫做 module_one
 RUN go build -o module_one
 
+
+FROM scratch
+
 # 移动到用于存放生成的二进制文件的 /dist 目录
 WORKDIR /dist
 
 # 将二进制文件从 /build 目录复制到这里 /dist
-RUN cp /build/module_one .
+COPY --from=build /build/module_one .
 
 # 声明服务端口
 EXPOSE 8888
@@ -41,4 +44,4 @@ EXPOSE 8888
 ENTRYPOINT ["module_one"]
 
 # 定义启动容器应用的时候的参数
-#CMD ["/dist/module_one"]
+CMD ["--help"]
