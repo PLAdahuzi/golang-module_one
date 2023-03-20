@@ -8,7 +8,7 @@ FROM golang:alpine
 #               当CGO_ENABLED=0， 进行编译时， 则会把在目标文件中未定义的符号（外部函数）一起链接到可执行文件中。
 # GOOS: 指定在什么系统环境中运行
 # GOARCH： 指定运行的系统是多少位
-ENV GO111MODULE="auto" \
+ENV GO111MODULE=off \
     GOPROXY=https://goproxy.cn,direct \
     CGO_ENABLED=0 \
     GOOS=linux \
