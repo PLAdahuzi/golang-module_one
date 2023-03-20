@@ -2,12 +2,12 @@ package main
 
 import (
 	"github.com/golang/glog"
-	"module_one/config/register"
-	"module_one/header"
-	"module_one/health"
-	"module_one/ip"
-	"module_one/log"
-	"module_one/version"
+	"golang-module_one/config/register"
+	"golang-module_one/header"
+	"golang-module_one/health"
+	"golang-module_one/ip"
+	"golang-module_one/log"
+	"golang-module_one/version"
 	"net/http"
 )
 
