@@ -9,11 +9,9 @@ FROM golang:alpine
 # GOOS: 指定在什么系统环境中运行
 # GOARCH： 指定运行的系统是多少位
 ENV GO111MODULE=off \
-    GOPROXY=https://goproxy.cn,direct \
     CGO_ENABLED=0 \
     GOOS=linux \
-    GOARCH=amd64 \
-    GOPATH=$GOPATH/src/golang-module_one
+    GOARCH=amd64
 
 # 移动到工作目录中
 WORKDIR /build
@@ -21,13 +19,13 @@ WORKDIR /build
 #将代码复制到容器中
 COPY . .
 
-RUN apk add --no-cache git
-RUN go get github.com/golang/dep/cmd/dep
+#RUN apk add --no-cache git
+#RUN go get github.com/golang/dep/cmd/dep
 
 #初始化go项目
 #RUN go mod init golang-module_one
 # 编译代码 编译成可执行的二进制文件 应用的名字叫做 module_one
-RUN go build -o module_one .
+RUN go build -installsuffix cgo -o module_one .
 
 # 移动到用于存放生成的二进制文件的 /dist 目录
 WORKDIR /dist
