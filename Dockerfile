@@ -41,4 +41,4 @@ EXPOSE 8888
 ENTRYPOINT ["module_one"]
 
 # 定义启动容器应用的时候的参数
-CMD ["--help"]
+#CMD ["--help"]
