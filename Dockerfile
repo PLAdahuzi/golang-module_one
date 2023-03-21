@@ -1,5 +1,5 @@
 # 指定基础镜像 docker官网公开的基础镜像地址 https://hub.docker.com/_/golang
-FROM golang:alpine
+FROM golang
 
 # 设置环境变量
 # GO111MODULE: on 开启GO111MODULE 解决导包问题
@@ -20,25 +20,18 @@ WORKDIR /build
 #将代码复制到容器中
 COPY . .
 
-#RUN apk add --no-cache git
-#RUN go get github.com/golang/dep/cmd/dep
-
-#初始化go项目
-#RUN go mod init golang-module_one
 # 编译代码 编译成可执行的二进制文件 应用的名字叫做 module_one
+# -installsuffix：为了使当前的输出目录与默认的编译输出目录分离，可以使用这个标记。此标记的值会作为结果文件的父目录名称的后缀。
+#       其实，如果使用了-race标记，这个标记会被自动追加且其值会为race。如果我们同时使用了-race标记和-installsuffix，
+#       那么在-installsuffix标记的值的后面会再被追加_race，并以此来作为实际使用的后缀。
+# -o：编译指定输出到的文件。
+# cgo：
 RUN go build -installsuffix cgo -o module_one .
 
-# 移动到用于存放生成的二进制文件的 /dist 目录
-WORKDIR /dist
-
-# 将二进制文件从 /build 目录复制到这里 /dist
-COPY /build/module_one .
-
+FROM alpine
+COPY --from=build /build/module_one /module_one
 # 声明服务端口
 EXPOSE 8888
 
 # 启动容器时需要启动的应用
-ENTRYPOINT ["module_one"]
-
-# 定义启动容器应用的时候的参数
-#CMD ["--help"]
+ENTRYPOINT ["/module_one"]
