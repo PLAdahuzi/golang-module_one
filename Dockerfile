@@ -29,9 +29,11 @@ COPY . .
 RUN go build -installsuffix cgo -o module_one .
 
 FROM alpine:3.17.2
-COPY --from=build /build/module_one /module_one
+WORKDIR /app
+
+COPY --from=build /build/module_one .
 # 声明服务端口
 EXPOSE 8888
 
 # 启动容器时需要启动的应用
-ENTRYPOINT ["/module_one"]
+ENTRYPOINT ["/app/module_one"]
