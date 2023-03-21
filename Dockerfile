@@ -1,5 +1,5 @@
 # 指定基础镜像 docker官网公开的基础镜像地址 https://hub.docker.com/_/golang
-FROM golang:1.20.2
+FROM golang:1.20.2 AS builder
 
 # 设置环境变量
 # GO111MODULE: on 开启GO111MODULE 解决导包问题
