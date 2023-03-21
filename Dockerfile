@@ -31,7 +31,7 @@ RUN go build -installsuffix cgo -o module_one .
 FROM alpine:3.17.0
 WORKDIR /app
 
-COPY --from=build /module_one .
+COPY --from=build /build/module_one .
 # 声明服务端口
 EXPOSE 8888
 
