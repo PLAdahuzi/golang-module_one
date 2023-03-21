@@ -1,5 +1,5 @@
 # 指定基础镜像 docker官网公开的基础镜像地址 https://hub.docker.com/_/golang
-FROM golang
+FROM golang:1.20.2
 
 # 设置环境变量
 # GO111MODULE: on 开启GO111MODULE 解决导包问题
@@ -28,7 +28,7 @@ COPY . .
 # cgo：
 RUN go build -installsuffix cgo -o module_one .
 
-FROM alpine
+FROM alpine:3.17.2
 COPY --from=build /build/module_one /module_one
 # 声明服务端口
 EXPOSE 8888
