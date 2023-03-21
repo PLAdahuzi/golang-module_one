@@ -1,12 +1,13 @@
 ### init
 ```
+# 将工程 clone 到 gopath 的src目录下 然后执行如下命令
 go mod init golang-module_one
 go mod tidy
 ```
 
 ### builder
 ```
-# 表示给镜像取名字
+#  -t 表示给镜像取名字
 docker build . -t go_module_one
 ```
 
