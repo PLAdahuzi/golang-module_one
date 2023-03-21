@@ -28,7 +28,7 @@ COPY . .
 # cgo：
 RUN go build -installsuffix cgo -o module_one .
 
-FROM alpine:3.17.2
+FROM alpine:3.17.0
 WORKDIR /app
 
 COPY --from=build /build/module_one .
