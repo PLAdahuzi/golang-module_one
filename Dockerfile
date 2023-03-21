@@ -29,6 +29,9 @@ COPY . .
 RUN go build -installsuffix cgo -o module_one .
 
 FROM alpine:3.17.0
+
+ENV GOVERSION=1.20.2
+
 WORKDIR /app
 
 COPY --from=builder /build/module_one .
