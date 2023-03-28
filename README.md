@@ -67,3 +67,43 @@ exit
 # 查看网络 
 nsenter --target $PID --mount --uts --ipc --net --pid ip a && ip r
 ```
+
+
+### k8s 安装
+[参考文档](https://u.geekbang.org/lesson/482?article=608883&utm_source=time_web&utm_medium=menu&utm_term=timewebmenu&utm_identify=geektime&utm_content=menu&utm_campaign=timewebmenu&gk_cus_user_wechat=university)
+###### 遇到的问题
+```
+    问题1. 22:16:28 ubantu-01 kubelet[39726]: E0328 22:16:28.220696   39726 server.go:294] "Failed to run kubelet" err="failed to run Kubelet: misconfiguration: kubelet cgroup driv>
+    
+    解决: docker 没有设置Cgroup Driver，默认使用的是 cgroupfs ，k8s推荐使用的 Cgroup Driver 是 systemd，所以报错
+    ps：docker默认的Cgroup Driver是cgroupfs ，cgroupfs是cgroup为给用户提供的操作接口而开发的虚拟文件系统类型，可以向用户展示cgroup的hierarchy，通知kernel用户对cgroup改动，对cgroup的查询和修改只能通过cgroupfs文件系统来进行
+        Kubernetes 推荐使用 systemd 来代替 cgroupfs，  因为systemd是Kubernetes自带的cgroup管理器, 负责为每个进程分配cgroups， 但docker的cgroup driver默认是cgroupfs，这样就同时运行有两个cgroup控制管理器，当资源有压力的情况时，有可能出现不稳定的情况
+
+更新 cgroupdriver 为 systemd
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://uy35zvn6.mirror.aliyuncs.com"],
+  "exec-opts": ["native.cgroupdriver=systemd"]
+}
+EOF
+ 
+systemctl daemon-reload
+systemctl restart docker
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
