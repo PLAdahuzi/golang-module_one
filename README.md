@@ -1,17 +1,18 @@
-### init
+# Dockerfile
+## init
 ```
 # 将工程 clone 到 gopath 的src目录下 然后执行如下命令
 go mod init golang-module_one
 go mod tidy
 ```
 
-### builder
+## builder
 ```
 #  -t 表示给镜像取名字
 docker build . -t go_module_one
 ```
 
-### run
+## run
 ```
 # 语法： docker run --name 设置容器名 -it -d -p [宿主机端口号]:[容器启动端口号] 要启动的镜像
 # -d 作用在镜像启动之后不进入容器内部，使容器在后台运行
@@ -20,7 +21,7 @@ docker build . -t go_module_one
 docker run --name goModuleOne  -it -d  -p 8888:8888 go_module_one
 ```
 
-### push image to DockerHub
+## push image to DockerHub
 ```
 # 语法：docker push [OPTIONS] NAME[:TAG]
 # 登录docker 输入用户名  密码
@@ -32,7 +33,7 @@ docker push pladahuzi/go_module_one:v1.0
 # 
 ```
 
-### 通过 nsenter 进入容器查看 IP 配置
+## 通过 nsenter 进入容器查看 IP 配置
 ```
 # 查看运行的容器
 docker ps
@@ -69,7 +70,8 @@ nsenter --target $PID --mount --uts --ipc --net --pid ip a && ip r
 ```
 
 
-### k8s 安装
+# K8S
+## k8s 安装
 [参考文档](https://u.geekbang.org/lesson/482?article=608883&utm_source=time_web&utm_medium=menu&utm_term=timewebmenu&utm_identify=geektime&utm_content=menu&utm_campaign=timewebmenu&gk_cus_user_wechat=university)
 ###### 遇到的问题
 ```
